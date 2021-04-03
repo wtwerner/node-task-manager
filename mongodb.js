@@ -1,10 +1,12 @@
 // CRUD
 
-const mongodb = require('mongodb')
-const MongoClient = mongodb.MongoClient
+const { MongoClient, ObjectID } = require('mongodb')
 
 const connectionURL = 'mongodb://127.0.0.1:27017'
 const databaseName = 'task-manager'
+
+const id = new ObjectID()
+console.log(id)
 
 MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
     if (error) {
@@ -41,24 +43,25 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
     //     console.log(result.ops)
     // })
 
-    db.collection('tasks').insertMany([
-        {
-            description: 'Do laundry',
-            completed: false
-        }, 
-        {
-            description: 'Order groceries',
-            completed: true
-        }, 
-        {
-            description: 'Give Max medicine',
-            completed: false
-        }
-    ], (error, result) => {
-        if (error) {
-            return console.log('Unable to insert tasks')
-        }
+//     db.collection('tasks').insertMany([
+//         {
+//             description: 'Do laundry',
+//             completed: false
+//         }, 
+//         {
+//             description: 'Order groceries',
+//             completed: true
+//         }, 
+//         {
+//             description: 'Give Max medicine',
+//             completed: false
+//         }
+//     ], (error, result) => {
+//         if (error) {
+//             return console.log('Unable to insert tasks')
+//         }
 
-        console.log(result.ops)
-    })
+//         console.log(result.ops)
+//     })
 })
+
