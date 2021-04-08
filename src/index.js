@@ -46,6 +46,28 @@ app.get('/users/:id', async (req, res) => {
     }
 })
 
+app.patch('/users/:id', async (req, res) => {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'email', 'password', 'age']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (isValidOperation === false) {
+        return res.status(400).send({ error: 'Invalid updates' })
+    }
+
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+
+        if (!user) {
+            return res.status(404).send()
+        }
+
+        res.send(user)
+    } catch (e) {
+        res.status(400).send(e)
+    }
+})
+
 // Tasks Endpoints
 
 app.post('/tasks', async (req, res) => {
@@ -73,7 +95,7 @@ app.get('/tasks/:id', async (req, res) => {
 
     try {
         const task = await Task.findById(_id)
-        
+
         if (!task) {
             return res.status(404).send()
         }
