@@ -51,7 +51,7 @@ app.patch('/users/:id', async (req, res) => {
     const allowedUpdates = ['name', 'email', 'password', 'age']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
-    if (isValidOperation === false) {
+    if (!isValidOperation) {
         return res.status(400).send({ error: 'Invalid updates' })
     }
 
@@ -111,7 +111,7 @@ app.patch('/tasks/:id', async (req, res) => {
     const allowedUpdates = ['description', 'completed']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
-    if (isValidOperation === false) {
+    if (!isValidOperation) {
         return res.status(400).send({ error: 'Invalid updates' })
     }
 
