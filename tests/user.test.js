@@ -5,6 +5,13 @@ const { userOne, userOneId, setupDatabase } = require('./fixtures/db')
 
 beforeEach(setupDatabase)
 
+// User Test Ideas
+//
+// Should not signup user with invalid name/email/password
+// Should not update user if unauthenticated
+// Should not update user with invalid name/email/password
+// Should not delete user if unauthenticated
+
 test('Should signup a new user', async () => {
     const response = await request(app)
         .post('/users')
